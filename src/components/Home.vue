@@ -1,7 +1,12 @@
 <template>
+  <Filter
+    :continents="continents"
+    :selected-continent="selectedContinent"
+    @update:selected-continent="updateSelectedContinent"
+  />
   <main>
     <ul>
-      <li v-for="item in items" :key="item.id">
+      <li v-for="item in filteredItems" :key="item.id">
         <img :src="item.flags.png" alt="Flag" />
         <div class="item-content">
           <h2>{{ item.name.official }}</h2>
@@ -34,14 +39,35 @@
 
 <script>
 import axios from "axios";
+import Filter from "@/components/Filter.vue";
 
 export default {
   name: "Home",
+  components: {
+    Filter,
+  },
   data() {
     return {
       items: [],
       errorMessage: "",
+      selectedContinent: "",
     };
+  },
+  computed: {
+    filteredItems() {
+      return this.selectedContinent
+        ? this.items.filter((item) => item.region === this.selectedContinent)
+        : this.items;
+    },
+    continents() {
+      const regions = this.items.map((item) => item.region);
+      return Array.from(new Set(regions));
+    },
+  },
+  methods: {
+    updateSelectedContinent(continent) {
+      this.selectedContinent = continent;
+    },
   },
   mounted() {
     axios
@@ -55,13 +81,15 @@ export default {
   },
 };
 </script>
+
 <style lang="scss" scoped>
 $country-name: #111517;
 ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  row-gap: 40px;
+  row-gap: 60px;
+  column-gap: 70px;
 
   li {
     background: white;
