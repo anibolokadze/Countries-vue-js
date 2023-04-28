@@ -1,27 +1,35 @@
 <template>
-  <div>
-    <h1>Where in the world?</h1>
+  <main>
     <ul>
       <li v-for="item in items" :key="item.id">
         <img :src="item.flags.png" alt="Flag" />
-        {{ item.name.official }}
-        <p>
-          Population:
-          {{
-            (item.population / 1000).toLocaleString("en-US", {
-              minimumFractionDigits: 3,
-              maximumFractionDigits: 3,
-            })
-          }}
-        </p>
-        <p>Region: {{ item.region }}</p>
-        <p>
-          Capital: {{ item.capital ? item.capital.join(", ") : "Not Found" }}
-        </p>
+        <div class="item-content">
+          <h2>{{ item.name.official }}</h2>
+          <h3>
+            Population:
+            <span>
+              {{
+                (item.population / 1000).toLocaleString("en-US", {
+                  minimumFractionDigits: 3,
+                  maximumFractionDigits: 3,
+                })
+              }}
+            </span>
+          </h3>
+          <h3>
+            Region: <span>{{ item.region }}</span>
+          </h3>
+          <h3>
+            Capital:
+            <span>{{
+              item.capital ? item.capital.join(", ") : "Not Found"
+            }}</span>
+          </h3>
+        </div>
       </li>
     </ul>
     <p v-if="errorMessage">{{ errorMessage }}</p>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -47,11 +55,41 @@ export default {
   },
 };
 </script>
-<style>
-body {
-  font-family: "Nunito Sans", sans-serif;
-}
-ul li {
-  list-style: none;
+<style lang="scss" scoped>
+$country-name: #111517;
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  row-gap: 40px;
+
+  li {
+    background: white;
+    box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.0294384);
+    border-radius: 5px;
+    width: 264px;
+    height: 336px;
+    cursor: pointer;
+    .item-content {
+      padding: 24px 0px 46px 24px;
+    }
+    img {
+      width: 263px;
+      height: 160px;
+    }
+    h2 {
+      color: $country-name;
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+    h3 {
+      font-size: 14px;
+      margin-bottom: 8px;
+      span {
+        font-weight: 400;
+        font-size: 14px;
+      }
+    }
+  }
 }
 </style>

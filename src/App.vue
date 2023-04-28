@@ -11,3 +11,18 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+$body-background: #fafafa;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Nunito Sans", sans-serif;
+  background: $body-background;
+}
+ul li {
+  list-style: none;
+}
+</style>
