@@ -39,7 +39,6 @@
           </li>
         </ul>
       </div>
-
       <p v-if="errorMessage">{{ errorMessage }}</p>
     </main>
   </div>
@@ -113,6 +112,12 @@ ul {
     width: 264px;
     height: 336px;
     cursor: pointer;
+    &:hover {
+      transition: all 0.3s ease-in;
+      -ms-transform: scale(1.1);
+      -webkit-transform: scale(1.1);
+      transform: scale(1.1);
+    }
     .item-content {
       padding: 24px 0px 46px 24px;
     }
