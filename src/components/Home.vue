@@ -1,40 +1,48 @@
 <template>
-  <Filter
-    :continents="continents"
-    :selected-continent="selectedContinent"
-    @update:selected-continent="updateSelectedContinent"
-  />
-  <main>
-    <ul>
-      <li v-for="item in filteredItems" :key="item.id">
-        <img :src="item.flags.png" alt="Flag" />
-        <div class="item-content">
-          <h2>{{ item.name.official }}</h2>
-          <h3>
-            Population:
-            <span>
-              {{
-                (item.population / 1000).toLocaleString("en-US", {
-                  minimumFractionDigits: 3,
-                  maximumFractionDigits: 3,
-                })
-              }}
-            </span>
-          </h3>
-          <h3>
-            Region: <span>{{ item.region }}</span>
-          </h3>
-          <h3>
-            Capital:
-            <span>{{
-              item.capital ? item.capital.join(", ") : "Not Found"
-            }}</span>
-          </h3>
-        </div>
-      </li>
-    </ul>
-    <p v-if="errorMessage">{{ errorMessage }}</p>
-  </main>
+  <div>
+    <Filter
+      :continents="continents"
+      :selected-continent="selectedContinent"
+      @update:selected-continent="updateSelectedContinent"
+    />
+    <main>
+      <div v-if="loading" class="loading">
+        <img class="loader" src="../assets/Spinner-1s-200px.svg" />
+      </div>
+      <div v-else>
+        <ul>
+          <li v-for="item in filteredItems" :key="item.id">
+            <img :src="item.flags.png" alt="Flag" />
+            <div class="item-content">
+              <h2>{{ item.name.official }}</h2>
+              <h3>
+                Population:
+                <span>
+                  {{
+                    (item.population / 1000).toLocaleString("en-US", {
+                      minimumFractionDigits: 3,
+                      maximumFractionDigits: 3,
+                    })
+                  }}
+                </span>
+              </h3>
+              <h3>
+                Region: <span>{{ item.region }}</span>
+              </h3>
+              <h3>
+                Capital:
+                <span>{{
+                  item.capital ? item.capital.join(", ") : "Not Found"
+                }}</span>
+              </h3>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <p v-if="errorMessage">{{ errorMessage }}</p>
+    </main>
+  </div>
 </template>
 
 <script>
@@ -51,6 +59,7 @@ export default {
       items: [],
       errorMessage: "",
       selectedContinent: "",
+      loading: true,
     };
   },
   computed: {
@@ -74,6 +83,7 @@ export default {
       .get("https://restcountries.com/v3.1/all")
       .then((response) => {
         this.items = response.data;
+        this.loading = false;
       })
       .catch(() => {
         this.errorMessage = "Error loading data. Please try again later.";
@@ -84,6 +94,11 @@ export default {
 
 <style lang="scss" scoped>
 $country-name: #111517;
+.loading {
+  display: flex;
+  justify-content: center;
+}
+
 ul {
   display: flex;
   flex-wrap: wrap;
