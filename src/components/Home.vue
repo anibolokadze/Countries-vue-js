@@ -1,7 +1,6 @@
 <template>
   <Filter
     :continents="continents"
-    :selected-continent="selectedContinent"
     @update:selected-continent="updateSelectedContinent"
   />
   <main>
@@ -59,6 +58,18 @@ export default {
       loading: true,
     };
   },
+  mounted() {
+    axios
+      .get("https://restcountries.com/v3.1/all")
+      .then((response) => {
+        this.items = response.data;
+        this.loading = false;
+      })
+      .catch(() => {
+        this.loading = false;
+        this.errorMessage = "Error loading data. Please try again later.";
+      });
+  },
   computed: {
     filteredItems() {
       return this.selectedContinent
@@ -74,18 +85,6 @@ export default {
     updateSelectedContinent(continent) {
       this.selectedContinent = continent;
     },
-  },
-  mounted() {
-    axios
-      .get("https://restcountries.com/v3.1/all")
-      .then((response) => {
-        this.items = response.data;
-        this.loading = false;
-      })
-      .catch(() => {
-        this.loading = false;
-        this.errorMessage = "Error loading data. Please try again later.";
-      });
   },
 };
 </script>
