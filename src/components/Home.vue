@@ -1,47 +1,45 @@
 <template>
-  <div>
-    <Filter
-      :continents="continents"
-      :selected-continent="selectedContinent"
-      @update:selected-continent="updateSelectedContinent"
-    />
-    <main>
-      <div v-if="loading" class="loading">
-        <img class="loader" src="../assets/Spinner-1s-200px.svg" />
-      </div>
-      <div v-else>
-        <ul>
-          <li v-for="item in filteredItems" :key="item.id">
-            <img :src="item.flags.png" alt="Flag" />
-            <div class="item-content">
-              <h2>{{ item.name.official }}</h2>
-              <h3>
-                Population:
-                <span>
-                  {{
-                    (item.population / 1000).toLocaleString("en-US", {
-                      minimumFractionDigits: 3,
-                      maximumFractionDigits: 3,
-                    })
-                  }}
-                </span>
-              </h3>
-              <h3>
-                Region: <span>{{ item.region }}</span>
-              </h3>
-              <h3>
-                Capital:
-                <span>{{
-                  item.capital ? item.capital.join(", ") : "Not Found"
-                }}</span>
-              </h3>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <p v-if="errorMessage">{{ errorMessage }}</p>
-    </main>
-  </div>
+  <Filter
+    :continents="continents"
+    :selected-continent="selectedContinent"
+    @update:selected-continent="updateSelectedContinent"
+  />
+  <main>
+    <div v-if="loading" class="loading">
+      <img class="loader" src="../assets/Spinner-1s-200px.svg" />
+    </div>
+    <div v-else>
+      <ul>
+        <li v-for="item in filteredItems" :key="item.id">
+          <img :src="item.flags.png" alt="Flag" />
+          <div class="item-content">
+            <h2>{{ item.name.official }}</h2>
+            <h3>
+              Population:
+              <span>
+                {{
+                  (item.population / 1000).toLocaleString("en-US", {
+                    minimumFractionDigits: 3,
+                    maximumFractionDigits: 3,
+                  })
+                }}
+              </span>
+            </h3>
+            <h3>
+              Region: <span>{{ item.region }}</span>
+            </h3>
+            <h3>
+              Capital:
+              <span>{{
+                item.capital ? item.capital.join(", ") : "Not Found"
+              }}</span>
+            </h3>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+  </main>
 </template>
 
 <script>
@@ -85,6 +83,7 @@ export default {
         this.loading = false;
       })
       .catch(() => {
+        this.loading = false;
         this.errorMessage = "Error loading data. Please try again later.";
       });
   },
@@ -99,7 +98,16 @@ $country-name: #111517;
   align-items: center;
   height: 90vh;
 }
-
+main {
+  .error-message {
+    color: red;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+  }
+}
 ul {
   display: flex;
   flex-wrap: wrap;
