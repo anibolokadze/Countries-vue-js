@@ -1,14 +1,20 @@
 <template>
-  <select
-    id="continent"
-    :value="selectedContinent"
-    @input="updateSelectedContinent"
-  >
-    <option value="">Filter by Region</option>
-    <option v-for="continent in continents" :value="continent" :key="continent">
-      {{ continent }}
-    </option>
-  </select>
+  <div class="custom-select">
+    <div class="selected" @click="toggleOptions">
+      {{ selectedContinent || "Filter by Region" }}
+    </div>
+    <ul class="options" :class="{ 'options-show': showOptions }">
+      <li class="option" @click="updateSelectedContinent('')">All countries</li>
+      <li
+        v-for="continent in continents"
+        :key="continent"
+        class="option"
+        @click="updateSelectedContinent(continent)"
+      >
+        {{ continent }}
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -17,17 +23,73 @@ export default {
   props: {
     continents: {
       type: Array,
-      required: true,
     },
     selectedContinent: {
       type: String,
-      required: true,
     },
   },
+  data() {
+    return {
+      showOptions: false,
+    };
+  },
   methods: {
-    updateSelectedContinent(event) {
-      this.$emit("update:selectedContinent", event.target.value);
+    updateSelectedContinent(continent) {
+      this.$emit("update:selectedContinent", continent);
+      this.showOptions = false;
+    },
+    toggleOptions() {
+      this.showOptions = !this.showOptions;
     },
   },
 };
 </script>
+
+<style lang="scss">
+.custom-select {
+  position: relative;
+}
+.selected {
+  background-color: #ffffff;
+  box-shadow: 0px 2px 9px rgba(0, 0, 0, 0.0532439);
+  border-radius: 5px;
+  width: 200px;
+  height: 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  cursor: pointer;
+}
+
+.options {
+  position: absolute;
+  top: 56px;
+  left: 0;
+  width: 200px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  background-color: #ffffff;
+  box-shadow: 0px 2px 9px rgba(0, 0, 0, 0.0532439);
+  border-radius: 5px;
+  z-index: 1;
+  overflow-y: scroll;
+  max-height: 200px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+.options-show {
+  opacity: 1;
+}
+.option {
+  display: block;
+  padding: 16px;
+  font-size: 16px;
+  color: #333333;
+  cursor: pointer;
+}
+.option:hover {
+  background-color: #f5f5f5;
+}
+</style>

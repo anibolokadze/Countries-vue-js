@@ -96,6 +96,8 @@ $country-name: #111517;
 .loading {
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: 90vh;
 }
 
 ul {
