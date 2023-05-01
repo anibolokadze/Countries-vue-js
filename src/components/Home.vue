@@ -1,9 +1,12 @@
 <template>
-  <Search :items="items" @update:search-term="updateSearchTerm" />
-  <Filter
-    :continents="continents"
-    @update:selected-continent="updateSelectedContinent"
-  />
+  <header>
+    <Search :items="items" @update:search-term="updateSearchTerm" />
+    <Filter
+      :continents="continents"
+      @update:selected-continent="updateSelectedContinent"
+    />
+  </header>
+
   <main>
     <div v-if="loading" class="loading">
       <img class="loader" src="../assets/Spinner-1s-200px.svg" />
@@ -108,12 +111,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$country-name: #111517;
+$main-color: #111517;
+
 .loading {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 90vh;
+}
+header,
+main {
+  padding: 0 16px;
+}
+header {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 40px;
+  align-items: center;
 }
 main {
   .error-message {
@@ -151,9 +165,11 @@ ul {
     img {
       width: 263px;
       height: 160px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
     }
     h2 {
-      color: $country-name;
+      color: $main-color;
       font-size: 18px;
       margin-bottom: 16px;
     }

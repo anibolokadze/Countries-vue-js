@@ -48,17 +48,18 @@ export default {
 <style lang="scss">
 .custom-select {
   position: relative;
+  width: 400px;
 }
 .selected {
   background-color: #ffffff;
   box-shadow: 0px 2px 9px rgba(0, 0, 0, 0.0532439);
   border-radius: 5px;
-  width: 200px;
   height: 56px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 16px;
+  font-size: 12px !important;
   cursor: pointer;
 }
 
@@ -66,11 +67,12 @@ export default {
   position: absolute;
   top: 56px;
   left: 0;
-  width: 200px;
+  width: 250px;
+  height: 144px;
   padding: 0;
   margin: 0;
   list-style: none;
-  background-color: #ffffff;
+  background-color: white;
   box-shadow: 0px 2px 9px rgba(0, 0, 0, 0.0532439);
   border-radius: 5px;
   z-index: 1;
@@ -88,6 +90,7 @@ export default {
   font-size: 16px;
   color: #333333;
   cursor: pointer;
+  font-size: 12px !important;
 }
 .option:hover {
   background-color: #f5f5f5;
