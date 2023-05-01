@@ -1,4 +1,5 @@
 <template>
+  <Search />
   <Filter
     :continents="continents"
     @update:selected-continent="updateSelectedContinent"
@@ -44,11 +45,12 @@
 <script>
 import axios from "axios";
 import Filter from "@/components/Filter.vue";
-
+import Search from "@/components/Search.vue";
 export default {
   name: "Home",
   components: {
     Filter,
+    Search,
   },
   data() {
     return {
