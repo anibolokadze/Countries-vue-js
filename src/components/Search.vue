@@ -1,19 +1,40 @@
 <template>
-  <input type="text" v-model="input" placeholder="Search fruits..." />
-  <div class="item fruit" v-for="fruit in filteredList()" :key="fruit">
-    <p>{{ fruit }}</p>
-  </div>
-  <div class="item error" v-if="input && !filteredList().length">
-    <p>No results found!</p>
-  </div>
+  <input
+    type="text"
+    v-model="searchTerm"
+    placeholder="Search for a country..."
+    @input="searchItems"
+  />
 </template>
-<script setup>
-import { ref } from "vue";
-let input = ref("");
-const fruits = ["apple", "banana", "orange"];
-function filteredList() {
-  return fruits.filter((fruit) =>
-    fruit.toLowerCase().includes(input.value.toLowerCase())
-  );
-}
+<script>
+export default {
+  name: "CountrySearch",
+  props: {
+    items: {
+      type: Array,
+    },
+  },
+  data() {
+    return {
+      searchTerm: "",
+      filteredItems: [],
+    };
+  },
+  methods: {
+    searchItems() {
+      if (!this.searchTerm) {
+        this.filteredItems = [];
+        this.$emit("update:search-term", "");
+        return;
+      }
+      const term = this.searchTerm.toLowerCase();
+      this.filteredItems = this.items.filter(
+        (item) =>
+          item.name.common.toLowerCase().indexOf(term) > -1 ||
+          item.name.official.toLowerCase().indexOf(term) > -1
+      );
+      this.$emit("update:search-term", this.searchTerm);
+    },
+  },
+};
 </script>

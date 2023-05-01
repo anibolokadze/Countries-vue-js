@@ -1,5 +1,5 @@
 <template>
-  <Search />
+  <Search :items="items" @update:search-term="updateSearchTerm" />
   <Filter
     :continents="continents"
     @update:selected-continent="updateSelectedContinent"
@@ -46,6 +46,7 @@
 import axios from "axios";
 import Filter from "@/components/Filter.vue";
 import Search from "@/components/Search.vue";
+
 export default {
   name: "Home",
   components: {
@@ -57,6 +58,7 @@ export default {
       items: [],
       errorMessage: "",
       selectedContinent: "",
+      searchTerm: "",
       loading: true,
     };
   },
@@ -74,9 +76,20 @@ export default {
   },
   computed: {
     filteredItems() {
-      return this.selectedContinent
+      let items = this.selectedContinent
         ? this.items.filter((item) => item.region === this.selectedContinent)
         : this.items;
+
+      if (this.searchTerm) {
+        const term = this.searchTerm.toLowerCase();
+        items = items.filter(
+          (item) =>
+            item.name.common.toLowerCase().indexOf(term) > -1 ||
+            item.name.official.toLowerCase().indexOf(term) > -1
+        );
+      }
+
+      return items;
     },
     continents() {
       const regions = this.items.map((item) => item.region);
@@ -86,6 +99,9 @@ export default {
   methods: {
     updateSelectedContinent(continent) {
       this.selectedContinent = continent;
+    },
+    updateSearchTerm(term) {
+      this.searchTerm = term;
     },
   },
 };
