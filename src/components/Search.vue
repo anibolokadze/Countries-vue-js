@@ -58,6 +58,7 @@ div {
     font-weight: 400;
     font-size: 12px;
     line-height: 20px;
+    width: 100%;
   }
 }
 img {
