@@ -14,30 +14,34 @@
     <div v-else>
       <ul>
         <li v-for="item in filteredItems" :key="item.id">
-          <img :src="item.flags.png" alt="Flag" />
-          <div class="item-content">
-            <h2>{{ item.name.official }}</h2>
-            <h3>
-              Population:
-              <span>
-                {{
-                  (item.population / 1000).toLocaleString("en-US", {
-                    minimumFractionDigits: 3,
-                    maximumFractionDigits: 3,
-                  })
-                }}
-              </span>
-            </h3>
-            <h3>
-              Region: <span>{{ item.region }}</span>
-            </h3>
-            <h3>
-              Capital:
-              <span>{{
-                item.capital ? item.capital.join(", ") : "Not Found"
-              }}</span>
-            </h3>
-          </div>
+          <router-link
+            :to="{ name: 'CountryDetails', props: { itemId: item.id } }"
+          >
+            <img :src="item.flags.png" alt="Flag" />
+            <div class="item-content">
+              <h2>{{ item.name.official }}</h2>
+              <h3>
+                Population:
+                <span>
+                  {{
+                    (item.population / 1000).toLocaleString("en-US", {
+                      minimumFractionDigits: 3,
+                      maximumFractionDigits: 3,
+                    })
+                  }}
+                </span>
+              </h3>
+              <h3>
+                Region: <span>{{ item.region }}</span>
+              </h3>
+              <h3>
+                Capital:
+                <span>{{
+                  item.capital ? item.capital.join(", ") : "Not Found"
+                }}</span>
+              </h3>
+            </div>
+          </router-link>
         </li>
       </ul>
     </div>
@@ -47,6 +51,7 @@
 
 <script>
 import axios from "axios";
+
 import Filter from "@/components/Filter.vue";
 import Search from "@/components/Search.vue";
 
@@ -109,7 +114,6 @@ export default {
   },
 };
 </script>
-
 <style lang="scss" scoped>
 $main-color: #111517;
 .loading {
