@@ -13,31 +13,39 @@
     </div>
     <div v-else>
       <ul>
-        <li v-for="item in filteredItems" :key="item.id">
-          <img :src="item.flags.png" alt="Flag" />
-          <div class="item-content">
-            <h2>{{ item.name.official }}</h2>
-            <h3>
-              Population:
-              <span>
-                {{
-                  (item.population / 1000).toLocaleString("en-US", {
-                    minimumFractionDigits: 3,
-                    maximumFractionDigits: 3,
-                  })
-                }}
-              </span>
-            </h3>
-            <h3>
-              Region: <span>{{ item.region }}</span>
-            </h3>
-            <h3>
-              Capital:
-              <span>{{
-                item.capital ? item.capital.join(", ") : "Not Found"
-              }}</span>
-            </h3>
-          </div>
+        <li
+          v-for="item in filteredItems"
+          :key="item.id"
+          @click="logCountryData(item)"
+        >
+          <router-link
+            :to="{ name: 'CountryDetails', params: { name: item.name.common } }"
+          >
+            <img :src="item.flags.png" alt="Flag" />
+            <div class="item-content">
+              <h2>{{ item.name.official }}</h2>
+              <h3>
+                Population:
+                <span>
+                  {{
+                    (item.population / 1000).toLocaleString("en-US", {
+                      minimumFractionDigits: 3,
+                      maximumFractionDigits: 3,
+                    })
+                  }}
+                </span>
+              </h3>
+              <h3>
+                Region: <span>{{ item.region }}</span>
+              </h3>
+              <h3>
+                Capital:
+                <span>{{
+                  item.capital ? item.capital.join(", ") : "Not Found"
+                }}</span>
+              </h3>
+            </div>
+          </router-link>
         </li>
       </ul>
     </div>
@@ -106,6 +114,9 @@ export default {
     },
     updateSearchTerm(term) {
       this.searchTerm = term;
+    },
+    logCountryData(item) {
+      console.log(item.name.common);
     },
   },
 };
