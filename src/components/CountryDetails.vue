@@ -23,12 +23,13 @@ export default {
       loading: true,
     };
   },
-  created() {
-    const name = this.$route.params.name;
-    this.fetchCountry(name);
-  },
+  // created() {
+  //   const name = this.$route.params.name;
+  //   this.fetchCountry(this.$route.params.name);
+  // },
   methods: {
-    fetchCountry(name) {
+    fetchCountry() {
+      const name = this.$route.params.name;
       axios
         .get(`https://restcountries.com/v3.1/name/${name}`)
         .then((response) => {

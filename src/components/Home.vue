@@ -13,17 +13,13 @@
     </div>
     <div v-else>
       <ul>
-        <li
-          v-for="item in filteredItems"
-          :key="item.id"
-          @click="logCountryData(item)"
-        >
+        <li v-for="item in filteredItems" :key="item.name.common">
           <router-link
             :to="{ name: 'CountryDetails', params: { name: item.name.common } }"
           >
             <img :src="item.flags.png" alt="Flag" />
             <div class="item-content">
-              <h2>{{ item.name.official }}</h2>
+              <h2>{{ item.name.common }}</h2>
               <h3>
                 Population:
                 <span>
@@ -114,9 +110,6 @@ export default {
     },
     updateSearchTerm(term) {
       this.searchTerm = term;
-    },
-    logCountryData(item) {
-      console.log(item.name.common);
     },
   },
 };
