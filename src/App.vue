@@ -1,13 +1,18 @@
 <template>
-  <Home />
+  <div id="app">
+    <router-link to="/">Home</router-link>
+    <router-link to="/country-details">Details</router-link>
+  </div>
+
+  <router-view />
 </template>
 
 <script>
-import Home from "./components/Home";
+// import Home from "./components/Home";
 export default {
   name: "App",
   components: {
-    Home,
+    // Home,
   },
 };
 </script>
