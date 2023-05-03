@@ -43,7 +43,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 div {
-  background: #ffffff;
+  background: white;
   box-shadow: 0px 2px 9px rgba(0, 0, 0, 0.0532439);
   border-radius: 5px;
   width: 700px;

@@ -45,13 +45,13 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .custom-select {
   position: relative;
   width: 400px;
 }
 .selected {
-  background-color: #ffffff;
+  background-color: white;
   box-shadow: 0px 2px 9px rgba(0, 0, 0, 0.0532439);
   border-radius: 5px;
   height: 56px;

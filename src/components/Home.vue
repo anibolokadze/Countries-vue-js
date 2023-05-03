@@ -112,7 +112,6 @@ export default {
 
 <style lang="scss" scoped>
 $main-color: #111517;
-
 .loading {
   display: flex;
   justify-content: center;
