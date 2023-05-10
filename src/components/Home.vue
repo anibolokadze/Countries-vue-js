@@ -1,56 +1,65 @@
 <template>
-  <header>
-    <Search :items="items" @update:search-term="updateSearchTerm" />
-    <Filter
-      :continents="continents"
-      @update:selected-continent="updateSelectedContinent"
-    />
-  </header>
+  <div>
+    <header>
+      <Search :items="items" @update:search-term="updateSearchTerm" />
+      <Filter
+        :continents="continents"
+        @update:selected-continent="updateSelectedContinent"
+      />
+    </header>
 
-  <main>
-    <div v-if="loading" class="loading">
-      <img class="loader" src="../assets/Spinner-1s-200px.svg" />
-    </div>
-    <div v-else>
-      <ul>
-        <li v-for="item in filteredItems" :key="item.name.common">
-          <img :src="item.flags.png" alt="Flag" />
-          <div class="item-content">
-            <h2>{{ item.name.common }}</h2>
-            <h3>
-              Population:
-              <span>
-                {{
-                  (item.population / 1000).toLocaleString("en-US", {
-                    minimumFractionDigits: 3,
-                    maximumFractionDigits: 3,
-                  })
-                }}
-              </span>
-            </h3>
-            <h3>
-              Region: <span>{{ item.region }}</span>
-            </h3>
-            <h3>
-              Capital:
-              <span>{{
-                item.capital ? item.capital.join(", ") : "Not Found"
-              }}</span>
-            </h3>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
-    <p v-if="filteredItems.length === 0 && searchTerm" class="search-error">
-      No results
-    </p>
-  </main>
+    <main>
+      <div v-if="loading" class="loading">
+        <img class="loader" src="../assets/Spinner-1s-200px.svg" />
+      </div>
+      <div v-else>
+        <ul>
+          <li v-for="item in filteredItems" :key="item.name.common">
+            <router-link
+              :to="{
+                name: 'country-detail',
+                params: { name: item.name.common },
+              }"
+              class="router-link-active"
+            >
+              <img :src="item.flags.png" alt="Flag" />
+              <div class="item-content">
+                <h2>{{ item.name.common }}</h2>
+                <h3>
+                  Population:
+                  <span>
+                    {{
+                      (item.population / 1000).toLocaleString("en-US", {
+                        minimumFractionDigits: 3,
+                        maximumFractionDigits: 3,
+                      })
+                    }}
+                  </span>
+                </h3>
+                <h3>
+                  Region: <span>{{ item.region }}</span>
+                </h3>
+                <h3>
+                  Capital:
+                  <span>{{
+                    item.capital ? item.capital.join(", ") : "Not Found"
+                  }}</span>
+                </h3>
+              </div>
+            </router-link>
+          </li>
+        </ul>
+      </div>
+      <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+      <p v-if="filteredItems.length === 0 && searchTerm" class="search-error">
+        No results
+      </p>
+    </main>
+  </div>
 </template>
 
 <script>
 import axios from "axios";
-
 import Filter from "@/components/Filter.vue";
 import Search from "@/components/Search.vue";
 
@@ -69,17 +78,28 @@ export default {
       loading: true,
     };
   },
-  mounted() {
-    axios
-      .get("https://restcountries.com/v3.1/all")
-      .then((response) => {
-        this.items = response.data;
-        this.loading = false;
-      })
-      .catch(() => {
-        this.loading = false;
-        this.errorMessage = "Error loading data. Please try again later.";
-      });
+  created() {
+    this.fetchData();
+  },
+  methods: {
+    fetchData() {
+      axios
+        .get("https://restcountries.com/v3.1/all")
+        .then((response) => {
+          this.items = response.data;
+          this.loading = false;
+        })
+        .catch(() => {
+          this.loading = false;
+          this.errorMessage = "Error loading data. Please try again later.";
+        });
+    },
+    updateSelectedContinent(continent) {
+      this.selectedContinent = continent;
+    },
+    updateSearchTerm(term) {
+      this.searchTerm = term;
+    },
   },
   computed: {
     filteredItems() {
@@ -103,19 +123,17 @@ export default {
       return Array.from(new Set(regions));
     },
   },
-  methods: {
-    updateSelectedContinent(continent) {
-      this.selectedContinent = continent;
-    },
-    updateSearchTerm(term) {
-      this.searchTerm = term;
-    },
-  },
 };
 </script>
 
 <style lang="scss" scoped>
 $main-color: #111517;
+/* Remove underline from router-link */
+.router-link-active {
+  text-decoration: none;
+  color: $main-color;
+}
+
 .loading {
   display: flex;
   justify-content: center;
@@ -155,6 +173,7 @@ ul {
     width: 264px;
     height: 336px;
     cursor: pointer;
+
     &:hover {
       transition: all 0.3s ease-in;
       -ms-transform: scale(1.1);

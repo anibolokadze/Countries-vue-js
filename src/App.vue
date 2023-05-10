@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <Home />
+    <router-view />
   </div>
 </template>
 
 <script>
-import Home from "./components/Home";
+// import Home from "./components/Home";
 export default {
   name: "App",
-  components: {
-    Home,
-  },
+  // components: {
+  //   Home,
+  // },
 };
 </script>
 <style lang="scss">
@@ -25,6 +25,7 @@ body {
   font-family: "Nunito Sans", sans-serif;
   background: $body-background;
 }
+
 ul li {
   list-style: none;
 }
