@@ -42,6 +42,9 @@
       </ul>
     </div>
     <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+    <p v-if="filteredItems.length === 0 && searchTerm" class="search-error">
+      No results
+    </p>
   </main>
 </template>
 
@@ -129,15 +132,14 @@ header {
   row-gap: 40px;
   align-items: center;
 }
-main {
-  .error-message {
-    color: red;
-    font-size: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 90vh;
-  }
+.error-message,
+.search-error {
+  color: red;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
 }
 ul {
   display: flex;

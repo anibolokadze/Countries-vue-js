@@ -61,6 +61,12 @@ div {
     width: 100%;
   }
 }
+.no-results {
+  color: red;
+
+  font-size: 14px;
+  display: flex;
+}
 img {
   margin-right: 26px !important;
   width: 15px;
