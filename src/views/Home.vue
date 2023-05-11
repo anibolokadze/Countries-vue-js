@@ -128,7 +128,6 @@ export default {
 
 <style lang="scss" scoped>
 $main-color: #111517;
-/* Remove underline from router-link */
 .router-link-active {
   text-decoration: none;
   color: $main-color;

@@ -48,13 +48,13 @@ export default {
 <style lang="scss" scoped>
 .custom-select {
   position: relative;
-  width: 400px;
 }
 .selected {
   background-color: white;
   box-shadow: 0px 2px 9px rgba(0, 0, 0, 0.0532439);
   border-radius: 5px;
   height: 56px;
+  width: 200px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -67,7 +67,7 @@ export default {
   position: absolute;
   top: 56px;
   left: 0;
-  width: 250px;
+  width: 200px;
   height: 144px;
   padding: 0;
   margin: 0;
