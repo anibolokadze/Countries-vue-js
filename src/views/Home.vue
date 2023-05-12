@@ -1,5 +1,6 @@
 <template>
   <div>
+    <ThemeButton @toggle-theme="toggleTheme" />
     <header>
       <Search :items="items" @update:search-term="updateSearchTerm" />
       <Filter
@@ -62,12 +63,13 @@
 import axios from "axios";
 import Filter from "@/components/Filter.vue";
 import Search from "@/components/Search.vue";
-
+import ThemeButton from "@/components/ThemeButton.vue";
 export default {
   name: "Home",
   components: {
     Filter,
     Search,
+    ThemeButton,
   },
   data() {
     return {
@@ -99,6 +101,9 @@ export default {
     },
     updateSearchTerm(term) {
       this.searchTerm = term;
+    },
+    toggleTheme(value) {
+      this.light = value;
     },
   },
   computed: {
