@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ThemeButton @toggle-theme="toggleTheme" />
+    <h1 class="header-">Where in the world?</h1>
     <header>
       <Search :items="items" @update:search-term="updateSearchTerm" />
       <Filter
@@ -63,13 +63,12 @@
 import axios from "axios";
 import Filter from "@/components/Filter.vue";
 import Search from "@/components/Search.vue";
-import ThemeButton from "@/components/ThemeButton.vue";
+
 export default {
   name: "Home",
   components: {
     Filter,
     Search,
-    ThemeButton,
   },
   data() {
     return {
@@ -142,17 +141,36 @@ $main-color: #111517;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 90vh;
+  height: 60vh;
 }
 header,
 main {
   padding: 0 16px;
+  @media (min-width: 960px) {
+    padding: 0 81px;
+  }
+}
+h1 {
+  font-weight: 800;
+  font-size: 14px;
+  line-height: 20px;
+  color: $main-color;
+  padding: 16px 30px;
+  background: white;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.0562443);
+  height: 80px;
+  margin-block: 24px;
+  @media (min-width: 960px) {
+    font-size: 24px;
+    padding-left: 81px;
+  }
 }
 header {
   display: flex;
   flex-wrap: wrap;
   row-gap: 40px;
-  align-items: center;
+  column-gap: 20px;
+  justify-content: space-between;
 }
 .error-message,
 .search-error {
@@ -161,7 +179,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 90vh;
+  height: 60vh;
 }
 ul {
   display: flex;

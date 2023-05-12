@@ -59,6 +59,10 @@ div {
     font-size: 12px;
     line-height: 20px;
     width: 100%;
+    @media (min-width: 960px) {
+      height: 56px;
+      font-size: 14px;
+    }
   }
 }
 .no-results {

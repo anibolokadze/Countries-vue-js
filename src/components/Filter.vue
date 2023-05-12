@@ -61,6 +61,10 @@ export default {
   padding: 0 16px;
   font-size: 12px !important;
   cursor: pointer;
+  margin-bottom: 32px;
+  @media (min-width: 960px) {
+    font-size: 14px !important;
+  }
 }
 
 .options {
