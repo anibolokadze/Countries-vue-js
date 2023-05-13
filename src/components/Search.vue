@@ -51,7 +51,9 @@ div {
   display: flex;
   align-items: center;
   padding: 16px 32px;
-
+  @media (min-width: 960px) {
+    height: 56px;
+  }
   input {
     border: none;
     outline: none;
@@ -60,8 +62,7 @@ div {
     line-height: 20px;
     width: 100%;
     @media (min-width: 960px) {
-      height: 56px;
-      font-size: 14px;
+      font-size: 16px;
     }
   }
 }

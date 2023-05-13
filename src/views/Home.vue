@@ -158,11 +158,10 @@ h1 {
   padding: 16px 30px;
   background: white;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.0562443);
-  height: 80px;
-  margin-block: 24px;
+  margin-bottom: 24px;
   @media (min-width: 960px) {
     font-size: 24px;
-    padding-left: 81px;
+    padding: 23px 0 23px 81px;
   }
 }
 header {
